@@ -42,28 +42,52 @@
 						</div>
 						<div class="col-6 col-12-medium imp-medium">
 							<!--<span class="image fit"><img src="images/pic01.jpg" alt="" /></span> -->
-							<body>
-							<svg width=150 height=300></svg>
-							<script type="text/javascript">
-							xdomain = [0,42];
-							xrange = [0,100];
-							ydomain = [0,5];
-							yrange = [100,250];
-							cdomain = [0,42];
-							crange = ["blue","orange"];
-xs = d3.scaleLinear().domain(xdomain).range(xrange);
-ys = d3.scaleLinear().domain(ydomain).range(yrange);
-cs = d3.scaleLinear().domain(cdomain).range(crange);
-d3.select('svg')
-  .selectAll('rect')
-  .data([4,8,15,16,23,42])
-  .enter()
-  .append('rect')
-    .attr('x',20)
-    .attr('y',function(d,i) {return ys(i);})
-    .attr('width',function(d,i) {return xs(d);})
-    .attr('height',10)
-    .style('fill',function(d,i) {return cs(d);});
+<style> rect {fill: lightblue; stroke: black; }</style>
+<body>
+<svg width=300 height=300>
+</svg>
+<script type="text/javascript">
+var data = [4,8,15,16,23,42];
+
+>>
+var margin =50;
+var spx = d3.select("svg").attr("width")-(2*margin);
+var spy = d3.select("svg").attr("height")-(2*margin);
+var x = d3.scaleBand()
+.domain([0,1,2,3,4,5])
+.range([0,spx])
+;
+var y = d3.scaleLinear()
+.domain([0,42])
+.range([spy,0])
+;
+
+d3.select("svg")
+.append("g")
+.attr("transform","translate("+margin+","+margin+")")
+.selectAll("rect")
+.data(data)
+.enter()
+.append("rect")
+.attr("x",function(d,i) {return x(i)})
+.attr("y",function(d,i) {return y(d)})
+.attr("width", x.bandwidth())
+.attr("height",function(d,i){return spy-y(d)})
+;
+
+d3.select("svg")
+.append("g")
+.attr("transform","translate("+margin+","+margin+")")
+.call(d3.axisLeft(y))
+;
+
+d3.select("svg")
+.append("g")
+.attr("transform","translate("+margin+","+(spy+margin)+")")
+.call(d3.axisBottom(x))
+;
+>>
+
 </script>
 </body>
 						</div>
