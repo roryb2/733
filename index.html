@@ -58,10 +58,11 @@ const d1 = await d3.csv('files/Aces.csv');
 var data = [4,8,15,16,23,42,5,10,15];
 	
 var margin =50;
+var year = ["2010","2011","2012","2013","2014","2015","2016","2017","2018"];
 var spx = d3.select("svg").attr("width")-(2*margin);
 var spy = d3.select("svg").attr("height")-(2*margin);
 var x = d3.scaleBand()
-.domain([2010,2011,2012,2013,2014,2015,2016,2017,2018])
+.domain(year)
 .range([0,spx])
 ;
 var y = d3.scaleLinear()
@@ -76,7 +77,7 @@ d3.select("svg")
 .data(data)
 .enter()
 .append("rect")
-.attr("x",function(d,i) {return x(i-2010)})
+.attr("x",function(d,i) {return x(year[i])})
 .attr("y",function(d,i) {return y(d)})
 .attr("width", x.bandwidth())
 .attr("height",function(d,i){return spy-y(d)})
