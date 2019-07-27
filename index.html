@@ -50,7 +50,7 @@
 							<!--<span class="image fit"><img src="images/pic01.jpg" alt="" /></span> -->
 <style> rect {fill: lightblue; stroke: black; }</style>
 <body onload='init()'>
-<svg width=600 height=600>
+<svg width=550 height=600>
 </svg>
 <script type="text/javascript">
 async function init() {
@@ -76,7 +76,7 @@ d3.select("svg")
 .data(data)
 .enter()
 .append("rect")
-.attr("x",function(d,i) {return x(i)-2010})
+.attr("x",function(d,i) {return x(i)})
 .attr("y",function(d,i) {return y(d)})
 .attr("width", x.bandwidth())
 .attr("height",function(d,i){return spy-y(d)})
