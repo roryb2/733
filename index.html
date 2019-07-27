@@ -56,6 +56,7 @@
 async function init() {
 
 const data = await d3.csv('/files/Aces.csv');
+console.log(data);
 var margin =  50;
 var sx = d3.select("svg").attr("width")-(2*margin);
 var sy = d3.select("svg").attr("height")-(2*margin);
