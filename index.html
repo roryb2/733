@@ -54,19 +54,23 @@
 </svg>
 <script type="text/javascript">
 async function init() {
-const d1 = await d3.csv('files/Aces.csv');
-var data = [4,8,15,16,23,42,5,10,15];
-	
+const data = await d3.csv('files/Aces.csv'){
+  if (error) throw error;
+
+  // format the data
+  data.forEach(function(d) {
+    d.aces = +d.aces;
+  });
+
 var margin =50;
-var year = ["2010","2011","2012","2013","2014","2015","2016","2017","2018"];
 var spx = d3.select("svg").attr("width")-(2*margin);
 var spy = d3.select("svg").attr("height")-(2*margin);
 var x = d3.scaleBand()
-.domain(year)
+.domain(data.map(function(d) { return d.year; }))
 .range([0,spx])
 ;
 var y = d3.scaleLinear()
-.domain([0,42])
+.domain([0,d3.max(data, function(d) { return d.aces; })])
 .range([spy,0])
 ;
 
@@ -77,10 +81,10 @@ d3.select("svg")
 .data(data)
 .enter()
 .append("rect")
-.attr("x",function(d,i) {return x(year[i])})
-.attr("y",function(d,i) {return y(d)})
+.attr("x",function(d,i) {return x(d.year);})
+.attr("y",function(d,i) {return y(d.aces);})
 .attr("width", x.bandwidth())
-.attr("height",function(d,i){return spy-y(d)})
+.attr("height",function(d,i){return spy-y(d.aces)})
 ;
 
 d3.select("svg")
