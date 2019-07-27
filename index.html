@@ -48,68 +48,48 @@
 						</div>
 						<div class="col-6 col-12-medium imp-medium">
 							<!--<span class="image fit"><img src="images/pic01.jpg" alt="" /></span> -->
-<style> rect {fill: lightblue; stroke: black; }</style>
-<body>
-<svg width=600 height=600>
+<style> circle {fill: lightblue; stroke: black;} </style>
+<body onload='init()'>
+<svg width=300 height=300>
 </svg>
 <script type="text/javascript">
-// set the dimensions and margins of the graph
-var margin = {top: 20, right: 20, bottom: 30, left: 40};
-var mg = 50;
-var spx = d3.select("svg").attr("width") - (2*mg);
-var spy = d3.select("svg").attr("height") - (2*mg);
+async function init() {
 
-// set the ranges
-var x = d3.scaleBand()
-.range([0, spx])
+const data = await d3.csv('https://flunky.github.io/cars2017.csv');
+var margin =  50;
+var sx = d3.select("svg").attr("width")-(2*margin);
+var sy = d3.select("svg").attr("height")-(2*margin);
+var x = d3.scaleLog().base(10)
+.domain([10,150]).range([0,sx]);
+var y = d3.scaleLog().base(10)
+.domain([10,150]).range([sy,0]);
+
+d3.select("svg")
+.append("g")
+.attr("transform","translate("+margin+","+margin+")")
+.selectAll("circle")
+.data(data)
+.enter()
+.append("circle")
+.attr("cx",function(d,i){return x(d.AverageCityMPG)})
+.attr("cy",function(d,i){return y(d.AverageHighwayMPG)})
+.attr("r",function(d,i){return (2 + parseInt(d.EngineCylinders))})
 ;
-var y = d3.scaleLinear()
-          .range([spy, 0]);
-          
-// append the svg object to the body of the page
-// append a 'group' element to 'svg'
-// moves the 'group' element to the top left margin
-var svg = d3.select("body").append("svg")
-  .append("g")
-    .attr("transform", 
-          "translate(" + mg + "," + mg + ")");
 
-// get the data
-d3.csv("https://raw.githubusercontent.com/roryb2/My-Story/gh-pages/files/Aces.csv", function(error, data) {
-  if (error) throw error;
+d3.select("svg")
+.append("g")
+.attr("transform","translate("+margin+","+margin+")")
+.call(d3.axisLeft(y).tickValues([10,20,50,100]).tickFormat(d3.format("~s")))
+;
 
-  // format the data
-  data.forEach(function(d) {
-    d.aces = +d.aces;
-  });
-
-  // Scale the range of the data in the domains
-  x.domain(data.map(function(d) { return d.year; }));
-  y.domain([0, d3.max(data, function(d) { return d.aces; })]);
-
-  // append the rectangles for the bar chart
-  svg.selectAll("rect")
-      .data(data)
-    .enter().append("rect")
-      .attr("x", function(d) { return x(d.year); })
-      .attr("width", x.bandwidth())
-      .attr("y", function(d) { return y(d.aces); })
-      .attr("height", function(d) { return spy - y(d.aces); });
-
-  // add the x Axis
-  svg.append("g")
-      .attr("transform", "translate(0," + spy + ")")
-      .call(d3.axisBottom(x));
-
-  // add the y Axis
-  svg.append("g")
-      .call(d3.axisLeft(y));
-
-});
-
+d3.select("svg")
+.append("g")
+.attr("transform","translate("+margin+","+(sy+margin)+")")
+.call(d3.axisBottom(x).tickValues([10,20,50,100]).tickFormat(d3.format("~s")))
+;
+}
 </script>
-</body>
-						</div>
+</body>						</div>
 					</div>
 				</div>
 			</section>
