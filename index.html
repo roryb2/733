@@ -53,6 +53,7 @@
 <svg width=600 height=600>
 </svg>
 <script type="text/javascript">
+init(){
 const d1 = await d3.csv('files/Aves.csv');
 var data = [4,8,15,16,23,42];
 	
@@ -92,7 +93,7 @@ d3.select("svg")
 .attr("transform","translate("+margin+","+(spy+margin)+")")
 .call(d3.axisBottom(x))
 ;
-
+}
 </script>
 </body>
 						</div>
