@@ -54,9 +54,13 @@
 </svg>
 <script type="text/javascript">
 function init(){
-var cause = [];
-var dt = d3.csv.parse('https://raw.githubusercontent.com/roryb2/My-Story/gh-pages/files/Aces.csv');
-	console.log(dt);
+var rows;
+d3.csv('https://raw.githubusercontent.com/roryb2/My-Story/gh-pages/files/Aces.csv', function(data){
+	rows = data;
+});
+
+console.log(rows);
+
 var margin =  50;
 var sx = d3.select("svg").attr("width")-(2*margin);
 var sy = d3.select("svg").attr("height")-(2*margin);
