@@ -80,9 +80,7 @@ console.log(data.map(function(d) { return d.Year; }));
 
 g.append("g")
 .attr("transform", "translate(0," + height + ")")
-.call(d3.axisBottom(x))
-.attr("text-anchor", "middle")
-.text("Year");
+.call(d3.axisBottom(x));
 
 g.append("g")
 .call(d3.axisLeft(y))
