@@ -55,10 +55,7 @@
 <script type="text/javascript">
 function init(){
 var cause = [];
-var dt = d3.csv('https://raw.githubusercontent.com/roryb2/My-Story/gh-pages/files/Aces.csv',function(data){
-//console.log(data);
-return data
-});
+var dt = d3.csv('https://raw.githubusercontent.com/roryb2/My-Story/gh-pages/files/Aces.csv');
 
 console.log(dt.map(d => +d.Year));
 
