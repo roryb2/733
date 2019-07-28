@@ -93,9 +93,9 @@ g.selectAll(".bar")
 .enter().append("rect")
 .attr("class", "bar")
 .attr("x", function(d,i){return x(i);})
-.attr("y", function(d){return y(Number(d.aces));})
+.attr("y", function(d){return y(d.aces);})
 .attr("width", x.bandwidth())
-.attr("height", function(d){return height - y(Number(d.aces));})
+.attr("height", function(d){return height - y(d.aces);})
 ;
 });
 }
