@@ -54,55 +54,42 @@
 </svg>
 <script type="text/javascript">
 function init(){
-var rows;
-d3.csv('https://raw.githubusercontent.com/roryb2/My-Story/gh-pages/files/Aces.csv', function(data){
-//	console.log(data);
-	rows = data;
-});
 
-console.log(rows);
+var margin = {top: 25, right: 25, bottom: 25, left: 25},
+    width = d3.select("svg").attr("width")-margin.left - margin.right,
+    height = d3.select("svg").attr("height")-margin.top - margin.bottom;
 
-var margin =  50;
-var sx = d3.select("svg").attr("width")-(2*margin);
-var sy = d3.select("svg").attr("height")-(2*margin);
 var x = d3.scaleBand()
-.range([0,sx]);
+          .range([0, width])
+          .padding(0.1);
 var y = d3.scaleLinear()
-.range([sy,0]);
+          .range([height, 0]);
+          
+var svg = d3.select("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform","translate(" + margin.left + "," + margin.top + ")");
 
-var svg = d3.select("svg").append("g")
-.attr("transform","translate("+margin+","+margin+")");
-	
-d3.csv('https://raw.githubusercontent.com/roryb2/My-Story/gh-pages/files/Aces.csv', function(error, data) {
-  if (error) throw error;
-
-  // format the data
-  data.forEach(function(d) {
+d3.csv('https://raw.githubusercontent.com/roryb2/My-Story/gh-pages/files/Aces.csv', function(data){ 
+data.forEach(function(d) {
     d.aces = +d.aces;
-  });
-x.domain(data.map(function(d){ return d.year;}));
-y.domain([0,d3.max(data, function(d){ return d.aces;})]);
-console.log(data);	
-svg.selectAll("rect")
-.data(data)
-.enter()
-.append("rect")
-.attr("x",function(d,i){return x(d.year);})
-.attr("width",x.bandwidth())
-.attr("y",function(d,i){return y(d.aces);})
-.attr("height", function(d){return sy - y(d.aces);})
-;
-
-svg.append("g")
-.attr("transform","translate(0,"+margin+")")
-.call(d3.axisBottom(x))
-;
-
-svg.append("g")
-.attr("transform","translate("+margin+","+margin+")")
-.call(d3.axisLeft(y))
-;
 });
+
+// Scale the range of the data in the domains
+  x.domain(data.map(function(d) { return d.year; }));
+  y.domain([0, d3.max(data, function(d) { return d.aces; })]);
+
+svg.selectAll(".bar")
+      .data(data)
+    .enter().append("rect")
+      .attr("class", "bar")
+      .attr("x", function(d) { return x(d.year); })
+      .attr("width", x.bandwidth())
+      .attr("y", function(d) { return y(d.aces); })
+      .attr("height", function(d) { return height - y(d.aces); });
+});
+
 }
 </script>
 </body>						</div>
