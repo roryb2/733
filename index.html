@@ -55,9 +55,10 @@
 <script type="text/javascript">
 function init(){
 
-var margin = {top: 25, right: 25, bottom: 25, left: 25},
-    width = d3.select("svg").attr("width")-margin.left - margin.right,
-    height = d3.select("svg").attr("height")-margin.top - margin.bottom;
+var svg = d3.select("svg"),
+margin = {top: 25, right: 25, bottom: 25, left: 25},
+width = d3.select("svg").attr("width")-margin.left - margin.right,
+height = d3.select("svg").attr("height")-margin.top - margin.bottom;
 
 var x = d3.scaleBand()
           .range([0, width])
@@ -65,31 +66,39 @@ var x = d3.scaleBand()
 var y = d3.scaleLinear()
           .range([height, 0]);
           
-var svg = d3.select("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-  .append("g")
-    .attr("transform","translate(" + margin.left + "," + margin.top + ")");
+var g = svg
+.append("g")
+.attr("transform","translate(" + margin.left + "," + margin.top + ")");
 
-d3.csv('https://raw.githubusercontent.com/roryb2/My-Story/gh-pages/files/Aces.csv', function(data){ 
-data.forEach(function(d) {
-    d.aces = +d.aces;
-});
-
-// Scale the range of the data in the domains
+d3.csv('https://raw.githubusercontent.com/roryb2/My-Story/gh-pages/files/Aces.csv').then(function(data){ 
   x.domain(data.map(function(d) { return d.year; }));
-  y.domain([0, d3.max(data, function(d) { return d.aces; })]);
+  y.domain([0, d3.max(data, function(d) { return Number(d.aces); })]);
 
-svg.selectAll(".bar")
-      .data(data)
-    .enter().append("rect")
-      .attr("class", "bar")
-      .attr("x", function(d) { return x(d.year); })
-      .attr("width", x.bandwidth())
-      .attr("y", function(d) { return y(d.aces); })
-      .attr("height", function(d) { return height - y(d.aces); });
+g.append("g")
+.attr("transform", "translate(0," + height + ")")
+.call(d3.axisBottom(x))
 });
 
+g.append("g")
+.call(d3.axisLeft(y))
+.append("text")
+.attr("fill", "#000")
+.attr("transform", "rotate(-90)")
+.attr("y", 6)
+.attr("dy", "0.71em")
+.attr("text-anchor", "end")
+.text("Speed");
+	
+g.selectAll(".bar")
+.data(data)
+.enter().append("rect")
+.attr("class", "bar")
+.attr("x", function(d){return x(d.year);})
+.attr("y", function(d){return y(Number(d.Speed));})
+.attr("width", x.bandwidth())
+.attr("height", function(d){return height - y(Number(d.aces));})
+;
+});
 }
 </script>
 </body>						</div>
