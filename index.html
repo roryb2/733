@@ -53,10 +53,10 @@
 <svg width=300 height=300>
 </svg>
 <script type="text/javascript">
-async function init(){
+function init(){
 var cause = [];
-var data = await d3.csv('https://flunky.github.io/cars2017.csv').then(function(csv){
-console.log(csv);
+var data = d3.csv('https://flunky.github.io/cars2017.csv').then(function(d){
+console.log(d);
 });
 
 console.log(cause);
