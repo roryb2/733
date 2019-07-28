@@ -105,13 +105,14 @@ g.selectAll(".bar")
 ;
 	
 var line = d3.line()
-.x(function(d, i) { return x(d.Year); })
+.x(function(d, i) { return x(i); })
 .y(function(d) { return y(d.Average); })
 .curve(d3.curveMonotoneX);
 
 g.append("path")
+.datum(data)
 .attr("class", "line") 
-.attr("d", line()); 
+.attr("d", line); 
 	
 });
 }
