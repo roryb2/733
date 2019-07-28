@@ -49,11 +49,12 @@
 						<div class="col-6 col-12-medium imp-medium">
 							<!--<span class="image fit"><img src="images/pic01.jpg" alt="" /></span> -->
 <style> circle {fill: lightblue; stroke: black;} </style>
-<body>
+<body onload='init()'>
 <svg width=300 height=300>
 </svg>
 <script type="text/javascript">
-var data = d3.csv('https://flunky.github.io/cars2017.csv');
+async function init(){
+var data = await d3.csv('https://flunky.github.io/cars2017.csv');
 console.log(data);
 var margin =  50;
 var sx = d3.select("svg").attr("width")-(2*margin);
@@ -96,6 +97,7 @@ svg.append("g")
 .call(d3.axisLeft(y))
 ;
 });
+}
 </script>
 </body>						</div>
 					</div>
