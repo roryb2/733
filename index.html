@@ -73,7 +73,7 @@ d3.csv('https://raw.githubusercontent.com/roryb2/My-Story/gh-pages/files/Aces.cs
   });
 x.domain(data.map(function(d){ return d.year;}));
 y.domain([0,d3.max(data, function(d){ return d.aces;})]);
-	
+console.log(data);	
 svg.selectAll("rect")
 .data(data)
 .enter()
