@@ -56,11 +56,11 @@
 function init(){
 var cause = [];
 var dt = d3.csv('https://raw.githubusercontent.com/roryb2/My-Story/gh-pages/files/Aces.csv',function(data){
-console.log(data);
+//console.log(data);
 return data
 });
 
-document.write(dt);
+console.log(dt.map(d => +d.Year));
 
 var margin =  50;
 var sx = d3.select("svg").attr("width")-(2*margin);
