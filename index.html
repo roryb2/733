@@ -49,12 +49,10 @@
 						<div class="col-6 col-12-medium imp-medium">
 							<!--<span class="image fit"><img src="images/pic01.jpg" alt="" /></span> -->
 <style> circle {fill: lightblue; stroke: black;} </style>
-<body onload='init()'>
+<body>
 <svg width=300 height=300>
 </svg>
 <script type="text/javascript">
-async function init() {
-
 var margin =  50;
 var sx = d3.select("svg").attr("width")-(2*margin);
 var sy = d3.select("svg").attr("height")-(2*margin);
@@ -96,8 +94,6 @@ svg.append("g")
 .call(d3.axisLeft(y))
 ;
 });
-
-}
 </script>
 </body>						</div>
 					</div>
