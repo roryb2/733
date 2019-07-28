@@ -73,7 +73,7 @@ var g = svg
 d3.csv('https://raw.githubusercontent.com/roryb2/My-Story/gh-pages/files/Aces.csv').then(function(data){ 
   x.domain(data.map(function(d) { return d.year; }));
   y.domain([0, d3.max(data, function(d){ return Number(d.aces); })]);
-
+console.log(data.map(function(d) { return d.year; }));
 g.append("g")
 .attr("transform", "translate(0," + height + ")")
 .call(d3.axisBottom(x))
@@ -92,7 +92,7 @@ g.selectAll(".bar")
 .data(data)
 .enter().append("rect")
 .attr("class", "bar")
-.attr("x", function(d,i){return x(i);})
+.attr("x", function(d,i){return x(d);})
 .attr("y", function(d){return y(d.aces);})
 .attr("width", x.bandwidth())
 .attr("height", function(d){return height - y(d.aces);})
