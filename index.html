@@ -104,16 +104,6 @@ g.selectAll(".bar")
 .attr("height", function(d){return height - y(d.Aces);})
 ;
 	
-var line = d3.line()
-.x(function(d, i) { return x(i); })
-.y(function(d) { return y(d.Average); })
-.curve(d3.curveMonotoneX);
-
-g.append("path")
-.datum(data)
-.attr("class", "line") 
-.attr("d", line); 
-	
 });
 }
 </script>
