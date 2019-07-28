@@ -71,10 +71,6 @@ div.tooltip {
 </svg>
 <script type="text/javascript">
 function init(){
-	
-var div = d3.select(".chart1").append("div")	
-    .attr("class", "tooltip")				
-    .style("opacity", 0);
 
 var svg = d3.select("svg"),
 margin = {top: 25, right: 25, bottom: 25, left: 25},
@@ -95,7 +91,16 @@ d3.csv('https://raw.githubusercontent.com/roryb2/My-Story/gh-pages/files/Aces.cs
   x.domain(data.map(function(d) { return d.Year; }));
   y.domain([0, d3.max(data, function(d){ return Number(d.Aces); })]);
 console.log(data.map(function(d) { return d.Year; }));
+	
+var tip = d3.tip()
+  .attr('class', 'd3-tip')
+  .offset([-10, 0])
+  .html(function(d) {
+    return "<strong>Aces:</strong> <span style='color:red'>" + d.Aces + "</span>";
+  });
 
+svg.call(tip);
+	
 g.append("g")
 .attr("transform", "translate(0," + height + ")")
 .call(d3.axisBottom(x));
@@ -118,19 +123,8 @@ g.selectAll(".bar")
 .attr("y", function(d){return y(d.Aces);})
 .attr("width", x.bandwidth())
 .attr("height", function(d){return height - y(d.Aces);})
-.on("mouseover", function(d) {		
-            div.transition()		
-                .duration(200)		
-                .style("opacity", .9);		
-            div.html(d.Year + "<br/>"  + d.Aces)	
-                .style("left", (d3.event.pageX) + "px")		
-                .style("top", (d3.event.pageY - 28) + "px");	
-            })					
-        .on("mouseout", function(d) {		
-            div.transition()		
-                .duration(500)		
-                .style("opacity", 0);	
-        })
+.on('mouseover', tip.show)
+.on('mouseout', tip.hide)
 ;
 	
 });
