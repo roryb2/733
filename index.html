@@ -51,7 +51,9 @@
 <style>	
 	.bar {fill: dodgerblue;}
 	.bar:hover {fill: indianred;}
+	.line {fill: none; stroke: royalblue; stroke-width: 3;}
 </style>
+
 <body onload='init()'>
 <svg width=450 height=300>
 </svg>
@@ -103,13 +105,13 @@ g.selectAll(".bar")
 ;
 	
 var line = d3.line()
-.x(function(d, i) { return x(d.Year) + x.bandwidth() / 2; })
+.x(function(d, i) { return x(d.Year); })
 .y(function(d) { return y(d.Average); })
 .curve(d3.curveMonotoneX);
 
 g.append("path")
-.attr("class", "line") // Assign a class for styling
-.attr("d", line(data)); // 11. Calls the line generator
+.attr("class", "line") 
+.attr("d", line()); 
 	
 });
 }
