@@ -55,46 +55,51 @@
 <script type="text/javascript">
 async function init() {
 
-const data = await d3.csv('https://raw.githubusercontent.com/roryb2/My-Story/gh-pages/files/Aces.csv', function(error, data) {
+var margin =  50;
+var sx = d3.select("svg").attr("width")-(2*margin);
+var sy = d3.select("svg").attr("height")-(2*margin);
+var x = d3.scaleBand()
+.range([0,sx]);
+var y = d3.scaleLinear()
+.range([sy,0]);
+
+var svg = d3.select("svg").append("g")
+.attr("transform","translate("+margin+","+margin+")");
+	
+d3.csv('https://raw.githubusercontent.com/roryb2/My-Story/gh-pages/files/Aces.csv', function(error, data) {
   if (error) throw error;
 
   // format the data
   data.forEach(function(d) {
     d.aces = +d.aces;
   });
-});
-console.log(data);
-var margin =  50;
-var sx = d3.select("svg").attr("width")-(2*margin);
-var sy = d3.select("svg").attr("height")-(2*margin);
-var x = d3.scaleLog().base(10)
-.domain([10,150]).range([0,sx]);
-var y = d3.scaleLog().base(10)
-.domain([10,150]).range([sy,0]);
-
-d3.select("svg")
-.append("g")
-.attr("transform","translate("+margin+","+margin+")")
-.selectAll("circle")
+x.domain(data.map(function(d){ return d.year;}));
+y.domain([0,d3.max(data, function(d){ return d.aces;})]);
+	
+svg.selectAll("rect")
 .data(data)
 .enter()
-.append("circle")
-.attr("cx",function(d,i){return x(d.year)})
-.attr("cy",function(d,i){return y(d.aces)})
-.attr("r",function(d,i){return (2 + parseInt(d.year/100))})
+.append("rect")
+.attr("x",function(d,i){return x(d.year);})
+.attr("width",x.bandwidth())
+.attr("y",function(d,i){return y(d.aces);})
+.attr("height", function(d){return sy - y(d.aces);})
 ;
 
-d3.select("svg")
-.append("g")
+svg.append("g")
+.attr("transform","translate(0,"+(sy+margin)+")")
+.call(d3.axisBottom(x))
+;
+
+svg.append("g")
 .attr("transform","translate("+margin+","+margin+")")
-.call(d3.axisLeft(y).tickValues([10,20,50,100]).tickFormat(d3.format("~s")))
+.call(d3.axisLeft(y))
 ;
 
-d3.select("svg")
-.append("g")
-.attr("transform","translate("+margin+","+(sy+margin)+")")
-.call(d3.axisBottom(x).tickValues([10,20,50,100]).tickFormat(d3.format("~s")))
-;
+
+});
+console.log(data);
+
 }
 </script>
 </body>						</div>
