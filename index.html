@@ -56,7 +56,7 @@
 function init(){
 var cause = [];
 var data = d3.csv('https://flunky.github.io/cars2017.csv').then(function(d){
-console.log(d);
+return d;
 });
 
 console.log(data);
