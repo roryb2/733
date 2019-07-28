@@ -101,6 +101,11 @@ g.selectAll(".bar")
 .attr("width", x.bandwidth())
 .attr("height", function(d){return height - y(d.Aces);})
 ;
+	
+var line = d3.line()
+.x(function(d, i) { return x(d.Year) + x.bandwidth() / 2; })
+.y(function(d) { return y(d.Average); })
+.curve(d3.curveMonotoneX);
 });
 }
 </script>
