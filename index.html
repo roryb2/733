@@ -55,10 +55,8 @@
 <script type="text/javascript">
 async function init(){
 var cause = [];
-var data = await d3.csv('https://flunky.github.io/cars2017.csv',function(csv){
-csv.map(function(d) {
-cause.push(d.AverageCityMPG);
-});
+var data = await d3.csv('https://flunky.github.io/cars2017.csv').then(function(csv){
+console.log(data);
 });
 
 console.log(cause);
