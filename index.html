@@ -62,6 +62,7 @@ const data = await d3.csv('https://raw.githubusercontent.com/roryb2/My-Story/gh-
   data.forEach(function(d) {
     d.aces = +d.aces;
   });
+});
 console.log(data);
 var margin =  50;
 var sx = d3.select("svg").attr("width")-(2*margin);
