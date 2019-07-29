@@ -56,6 +56,7 @@
 
 <body onload='init()'>
 <button id="rf" class="btn">Federer</button><button id="rn" class="btn">Nadal</button><button id="nd" class="btn">Djokovic</button><br>
+<div class="tooltip"></div>
 <svg width=450 height=300>
 </svg>
 <script type="text/javascript">
@@ -106,6 +107,36 @@ d3.csv('https://raw.githubusercontent.com/roryb2/My-Story/gh-pages/files/'+playe
   x.domain(data.map(function(d) { return d.Year; }));
   y.domain([0, 750]);
 console.log(data.map(function(d) { return d.Year; }));
+
+var tooltip = d3.select(".tooltip")
+    .append("div")
+    .style("opacity", 0)
+    .attr("class", "tooltip")
+    .style("background-color", "white")
+    .style("border", "solid")
+    .style("border-width", "1px")
+    .style("border-radius", "5px")
+    .style("padding", "10px")
+
+var mouseover = function(d) {
+    tooltip
+      .style("opacity", 1)
+  }
+
+  var mousemove = function(d) {
+    tooltip
+      .html(d.Year+ ": " + d.Ace)
+      .style("left", (d3.mouse(this)[0]+90) + "px") // It is important to put the +90: other wise the tooltip is exactly where the point is an it creates a weird effect
+      .style("top", (d3.mouse(this)[1]) + "px")
+  }
+
+  // A function that change this tooltip when the leaves a point: just need to set opacity to 0 again
+  var mouseleave = function(d) {
+    tooltip
+      .transition()
+      .duration(200)
+      .style("opacity", 0)
+  }
 	
 g.append("g")
 .attr("transform", "translate(0," + height + ")")
@@ -129,6 +160,9 @@ g.selectAll(".bar")
 .attr("y", function(d){return y(d.Aces);})
 .attr("width", x.bandwidth())
 .attr("height", function(d){return height - y(d.Aces);})
+.on("mouseover",mouseover)
+.on("mousemove",mousemove)
+.on("mouseleave",mouseleave)
 ;
 	
 });
