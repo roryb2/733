@@ -129,22 +129,16 @@ console.log(data.map(function(d) { return d.Year; }));
 var mouseover = function(d) {
             div.transition()		
                 .duration(200)		
-                .style("opacity", .9);		
+                .style("opacity", .9)
+	.html(d.Year+ ": " + d.Aces)
+      .style("left", (d3.event.pageX) + "px")
+      .style("top", (d3.event.pageY) + "px");		
   }
 
-  var mousemove = function(d) {
-    tooltip
-      .html(d.Year+ ": " + d.Aces)
-      .style("left", (d3.mouse(this)[0]) + "px") // It is important to put the +90: other wise the tooltip is exactly where the point is an it creates a weird effect
-      .style("top", (d3.mouse(this)[1]) + "px")
-  }
-
-  // A function that change this tooltip when the leaves a point: just need to set opacity to 0 again
-  var mouseleave = function(d) {
-    tooltip
-      .transition()
-      .duration(50)
-      .style("opacity", 0)
+  var mouseout = function(d) {
+    		div.transition()		
+                .duration(500)		
+                .style("opacity", 0);
   }
 	
 g.append("g")
@@ -170,8 +164,7 @@ g.selectAll(".bar")
 .attr("width", x.bandwidth())
 .attr("height", function(d){return height - y(d.Aces);})
 .on("mouseover",mouseover)
-.on("mousemove",mousemove)
-.on("mouseleave",mouseleave)
+.on("mouseout",mouseout)
 ;
 	
 });
