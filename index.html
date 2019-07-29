@@ -54,7 +54,7 @@
 	.line {fill: none; stroke: royalblue; stroke-width: 3;}	
 </style>
 
-<body id="bar1" onload='init()'>
+<body class="bars" onload='init()'>
 <button id="rf" value="Federer">Federer</button><button id="rn">Nadal</button><button id="nd">Djokovic</button><br>
 <svg width=450 height=300>
 </svg>
@@ -78,7 +78,7 @@ d3.select("#rn").on("click", function(d,i)
 	
 function show_stats(id){
 d3.select("svg").remove();
-d3.select("#bar1").append("svg").attr("width",450).attr("height",300);
+d3.selectAll(".bars").append("svg").attr("width",450).attr("height",300);
 	
 var svg = d3.select("svg"),
 margin = {top: 25, right: 25, bottom: 25, left: 25},
