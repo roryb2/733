@@ -51,22 +51,11 @@
 <style>	
 	.bar {fill: dodgerblue;}
 	.bar:hover {fill: indianred;}
-	.line {fill: none; stroke: royalblue; stroke-width: 3;}
-div.tooltip {	
-    position: absolute;			
-    text-align: center;			
-    width: 60px;					
-    height: 28px;					
-    padding: 2px;				
-    font: 12px sans-serif;		
-    background: lightsteelblue;	
-    border: 0px;		
-    border-radius: 8px;			
-    pointer-events: none;			
-}
+	.line {fill: none; stroke: royalblue; stroke-width: 3;}	
 </style>
 
-<body class="bar1" onload='init()'>
+<body id="bar1" onload='init()'>
+<button id="rf" value="Federer">Federer</button><button id="rn">Nadal</button><button id="nd">Djokovic</button><br>
 <svg width=450 height=300>
 </svg>
 <script type="text/javascript">
@@ -92,15 +81,6 @@ d3.csv('https://raw.githubusercontent.com/roryb2/My-Story/gh-pages/files/Aces.cs
   y.domain([0, d3.max(data, function(d){ return Number(d.Aces); })]);
 console.log(data.map(function(d) { return d.Year; }));
 	
-var tip = d3.tip()
-  .attr('class', 'd3-tip')
-  .offset([-10, 0])
-  .html(function(d) {
-    return "<strong>Aces:</strong> <span style='color:red'>" + d.Aces + "</span>";
-  });
-
-svg.call(tip);
-	
 g.append("g")
 .attr("transform", "translate(0," + height + ")")
 .call(d3.axisBottom(x));
@@ -123,8 +103,6 @@ g.selectAll(".bar")
 .attr("y", function(d){return y(d.Aces);})
 .attr("width", x.bandwidth())
 .attr("height", function(d){return height - y(d.Aces);})
-.on('mouseover', tip.show)
-.on('mouseout', tip.hide)
 ;
 	
 });
