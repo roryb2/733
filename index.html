@@ -75,8 +75,10 @@ var y = d3.scaleLinear()
 var g = svg
 .append("g")
 .attr("transform","translate(" + margin.left + "," + margin.top + ")");
-
-d3.csv('https://raw.githubusercontent.com/roryb2/My-Story/gh-pages/files/Federer.csv').then(function(data){ 
+	
+var players = ["Federer","Nadal","Djokovic"];
+	
+d3.csv('https://raw.githubusercontent.com/roryb2/My-Story/gh-pages/files/'+players[0]+'.csv').then(function(data){ 
   x.domain(data.map(function(d) { return d.Year; }));
   y.domain([0, d3.max(data, function(d){ return Number(d.Aces); })]);
 console.log(data.map(function(d) { return d.Year; }));
