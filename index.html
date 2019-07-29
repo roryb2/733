@@ -52,6 +52,19 @@
 	.bar {fill: dodgerblue;}
 	.bar:hover {fill: indianred;}
 	.line {fill: none; stroke: royalblue; stroke-width: 3;}	
+div.tooltip {	
+    position: absolute;			
+    text-align: center;			
+    width: 60px;					
+    height: 28px;					
+    padding: 2px;				
+    font: 12px sans-serif;		
+    background: lightsteelblue;	
+    border: 0px;		
+    border-radius: 8px;			
+    pointer-events: none;			
+}
+
 </style>
 
 <body onload='init()'>
@@ -108,16 +121,6 @@ d3.csv('https://raw.githubusercontent.com/roryb2/My-Story/gh-pages/files/'+playe
   y.domain([0, 750]);
 console.log(data.map(function(d) { return d.Year; }));
 
-var tooltip = d3.select(".tooltip")
-    .append("div")
-    .style("opacity", 0)
-    .attr("class", "tooltip")
-    .style("background-color", "white")
-    .style("border", "solid")
-    .style("border-width", "1px")
-    .style("border-radius", "5px")
-    .style("padding", "10px")
-
 var mouseover = function(d) {
     tooltip
       .style("opacity", 1)
@@ -125,8 +128,8 @@ var mouseover = function(d) {
 
   var mousemove = function(d) {
     tooltip
-      .html(d.Year+ ": " + d.Ace)
-      .style("left", (d3.mouse(this)[0]+90) + "px") // It is important to put the +90: other wise the tooltip is exactly where the point is an it creates a weird effect
+      .html(d.Year+ ": " + d.Aces)
+      .style("left", (d3.mouse(this)[0]) + "px") // It is important to put the +90: other wise the tooltip is exactly where the point is an it creates a weird effect
       .style("top", (d3.mouse(this)[1]) + "px")
   }
 
@@ -134,7 +137,7 @@ var mouseover = function(d) {
   var mouseleave = function(d) {
     tooltip
       .transition()
-      .duration(200)
+      .duration(50)
       .style("opacity", 0)
   }
 	
