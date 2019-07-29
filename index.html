@@ -104,7 +104,7 @@ var players = ["Federer","Nadal","Djokovic"];
 
 d3.csv('https://raw.githubusercontent.com/roryb2/My-Story/gh-pages/files/'+players[id]+'.csv').then(function(data){ 
   x.domain(data.map(function(d) { return d.Year; }));
-  y.domain([0, d3.max(data, function(d){ return Number(d.Aces); })]);
+  y.domain([0, 750]);
 console.log(data.map(function(d) { return d.Year; }));
 	
 g.append("g")
