@@ -163,6 +163,7 @@ g.selectAll(".bar")
               .style("display", "inline-block")
               .html((d.Year) + "<br>" + "Y" + (d.Aces));
         })
+.on("mouseout", function(d){ tooltip.style("display", "none");})
 ;	
 });
 }
