@@ -74,7 +74,7 @@ div.tooltip {
 }
 </style>
 
-<body class="chart" onload='init()'>
+<body id="chart" onload='init()'>
 <button id="rf" class="btn">Federer</button>
 <button id="rn" class="btn">Nadal</button>
 <button id="nd" class="btn">Djokovic</button>
@@ -109,9 +109,8 @@ d3.select("#rn").on("click", function(d,i)
 function show_stats(id){
 d3.select("g").remove();
 	
-var tooltip = d3.select(".chart").append("div")
-    .attr("class", "tooltip")
-    .style("opacity", 0);
+var tooltip = d3.select("#chart").append("div")
+    .attr("class", "tooltip");
 	
 var svg = d3.select("svg"),
 margin = {top: 25, right: 25, bottom: 25, left: 25},
