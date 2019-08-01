@@ -161,7 +161,7 @@ g.selectAll(".bar")
               .style("left", d3.event.pageX - 50 + "px")
               .style("top", d3.event.pageY - 70 + "px")
               .style("display", "inline-block")
-              .html((d.Year) + "<br>" + "Y" + (d.Aces));
+              .html("Year: "+(d.Year) + "<br>" + "Aces: " + (d.Aces));
         })
 .on("mouseout", function(d){ tooltip.style("display", "none");})
 ;	
