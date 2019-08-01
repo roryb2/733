@@ -109,7 +109,7 @@ d3.select("#rn").on("click", function(d,i)
 function show_stats(id){
 d3.select("g").remove();
 	
-var div = d3.select(".chart").append("div")
+var tooltip = d3.select(".chart").append("div")
     .attr("class", "tooltip")
     .style("opacity", 0);
 	
@@ -157,19 +157,13 @@ g.selectAll(".bar")
 .attr("y", function(d){return y(d.Aces);})
 .attr("width", x.bandwidth())
 .attr("height", function(d){return height - y(d.Aces);})
-.on("mouseover", function(d) {
-       div.transition()
-         .duration(200)
-         .style("opacity", .9);
-       div.html("Aces<br/>" + function(d){return d.Aces;})
-         .style("left", (d3.event.pageX) + "px")
-         .style("top", (d3.event.pageY - 28) + "px");
-       })
-     .on("mouseout", function(d) {
-       div.transition()
-         .duration(500)
-         .style("opacity", 0);
-       })
+.on("mousemove", function(d){
+            tooltip
+              .style("left", d3.event.pageX - 50 + "px")
+              .style("top", d3.event.pageY - 70 + "px")
+              .style("display", "inline-block")
+              .html((d.Year) + "<br>" + "Y" + (d.Aces));
+        })
 ;	
 });
 }
