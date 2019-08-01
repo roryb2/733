@@ -60,9 +60,21 @@
       border-radius: 4px;
       font-size: 12px;
     }
+div.tooltip {
+  position: absolute;
+  text-align: center;
+  width: 60px;
+  height: 28px;
+  padding: 2px;
+  font: 12px sans-serif;
+  background: lightsteelblue;
+  border: 0px;
+  border-radius: 8px;
+  pointer-events: none;
+}
 </style>
 
-<body onload='init()'>
+<body class="chart" onload='init()'>
 <button id="rf" class="btn">Federer</button>
 <button id="rn" class="btn">Nadal</button>
 <button id="nd" class="btn">Djokovic</button>
@@ -97,6 +109,10 @@ d3.select("#rn").on("click", function(d,i)
 function show_stats(id){
 d3.select("g").remove();
 	
+var div = d3.select(".chart").append("div")
+    .attr("class", "tooltip")
+    .style("opacity", 0);
+	
 var svg = d3.select("svg"),
 margin = {top: 25, right: 25, bottom: 25, left: 25},
 width = d3.select("svg").attr("width")-margin.left - margin.right,
@@ -114,31 +130,11 @@ var g = svg
 	
 var players = ["Federer","Nadal","Djokovic"];
 	
-var div = d3.selectAll(".tooltip")	
-    .attr("class", "tooltip")				
-    .style("opacity", 0);
-
 d3.csv('https://raw.githubusercontent.com/roryb2/My-Story/gh-pages/files/'+players[id]+'.csv').then(function(data){ 
   x.domain(data.map(function(d) { return d.Year; }));
   y.domain([0, 750]);
 console.log(data.map(function(d) { return d.Year; }));
 
-var mouseover = function(d) {
-            div.transition()		
-                .duration(200)		
-                .style("opacity", .9)
-      .style("left", (d3.event.pageX) + "px")
-      .style("top", (d3.event.pageY) + "px")
-		.attr("html",function(d){return d.Year+ ": " + d.Aces})
-;		
-  }
-
-  var mouseout = function(d) {
-    		div.transition()		
-                .duration(500)		
-                .style("opacity", 0);
-  }
-	
 g.append("g")
 .attr("transform", "translate(0," + height + ")")
 .call(d3.axisBottom(x));
@@ -161,10 +157,20 @@ g.selectAll(".bar")
 .attr("y", function(d){return y(d.Aces);})
 .attr("width", x.bandwidth())
 .attr("height", function(d){return height - y(d.Aces);})
-.on("mouseover",mouseover)
-.on("mouseout",mouseout)
-;
-	
+.on("mouseover", function(d) {
+       div.transition()
+         .duration(200)
+         .style("opacity", .9);
+       div.html("Aces<br/>" + function(d){return d.Aces;})
+         .style("left", (d3.event.pageX) + "px")
+         .style("top", (d3.event.pageY - 28) + "px");
+       })
+     .on("mouseout", function(d) {
+       div.transition()
+         .duration(500)
+         .style("opacity", 0);
+       })
+;	
 });
 }
 }
