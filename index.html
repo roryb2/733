@@ -141,21 +141,28 @@ g.append("g")
 
 g.append("g")
 .call(d3.axisLeft(y))
-.append("text")
-.attr("fill", "#000")
-.attr("transform", "rotate(-90)")
-.attr("y", 6)
-.attr("dy", "0.71em")
-.attr("text-anchor", "end")
-.text("Aces")
 ;
 
 g.append('g')
-    .attr('class', 'grid')
-    .call(d3.axisLeft()
-        .scale(y)
-        .tickSize(-width, 0, 0)
-        .tickFormat(''));
+.attr('class', 'grid')
+.call(d3.axisLeft()
+.scale(y)
+.tickSize(-width, 0, 0)
+.tickFormat(''))
+;
+
+svg.append('text')
+    .attr('x', -(height / 2) - margin.left)
+    .attr('y', margin.top / 2.4)
+    .attr('transform', 'rotate(-90)')
+    .attr('text-anchor', 'middle')
+    .text('Year')
+
+svg.append('text')
+    .attr('x', width / 2 + margin.left)
+    .attr('y', 40)
+    .attr('text-anchor', 'middle')
+    .text('Aces')
 	
 g.selectAll(".bar")
 .data(data)
