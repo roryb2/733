@@ -140,7 +140,6 @@ g.append("g")
 ;
 
 g.append("g")
-.attr('class', 'grid')
 .call(d3.axisLeft(y))
 .append("text")
 .attr("fill", "#000")
@@ -150,6 +149,13 @@ g.append("g")
 .attr("text-anchor", "end")
 .text("Aces")
 ;
+
+g.append('g')
+    .attr('class', 'grid')
+    .call(d3.axisLeft()
+        .scale(yScale)
+        .tickSize(-width, 0, 0)
+        .tickFormat(''));
 	
 g.selectAll(".bar")
 .data(data)
