@@ -159,10 +159,11 @@ svg.append('text')
     .text('Year');
 
 svg.append('text')
-    .attr('x', width / 2 + margin.left)
-    .attr('y', 40)
-    .attr('text-anchor', 'middle')
-    .text('Aces');
+      .attr('class', 'label')
+      .attr('x', width / 2 + margin.left)
+      .attr('y', height + margin.top * 1.7)
+      .attr('text-anchor', 'middle')
+      .text('Aces');
 	
 g.selectAll(".bar")
 .data(data)
