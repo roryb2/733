@@ -113,13 +113,13 @@ var tooltip = d3.select("#chart").append("div")
     .attr("class", "tooltip");
 	
 var svg = d3.select("svg"),
-margin = {top: 25, right: 25, bottom: 25, left: 25},
+margin = {top: 40, right: 40, bottom: 40, left: 40},
 width = d3.select("svg").attr("width")-margin.left - margin.right,
 height = d3.select("svg").attr("height")-margin.top - margin.bottom;
 
 var x = d3.scaleBand()
           .range([0, width])
-          .padding(0.4);
+          .padding(0.2);
 var y = d3.scaleLinear()
           .range([height, 0]);
           
