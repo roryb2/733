@@ -141,8 +141,14 @@ g.append("g")
 
 g.append("g")
 .attr('class', 'grid')
-.call(d3.axisLeft(y).scale(y).tickSize(-width, 0, 0).tickFormat(''))
+.call(d3.axisLeft(y))
 .append("text")
+.attr("fill", "#000")
+.attr("transform", "rotate(-90)")
+.attr("y", 6)
+.attr("dy", "0.71em")
+.attr("text-anchor", "end")
+.text("Aces")
 ;
 	
 g.selectAll(".bar")
