@@ -206,6 +206,14 @@ g.selectAll(".bar")
         .style("display", "inline-block")
         .html("Not hitting as many aces as his peers, in "+(d.Year) + " Nadal hit his highest ace count in that period with " + (d.Aces)+ ".");
 	}
+	else if(d.Year == "2012" && id == 2){
+	tooltip
+	.attr("class", "tooltipsp")
+        .style("left", d3.event.pageX - 50 + "px")
+        .style("top", d3.event.pageY - 70 + "px")
+        .style("display", "inline-block")
+        .html("Hitting more than Nadal but not as many as Federer, Djokovic showed his best in "+(d.Year) + " by hitting a total of " + (d.Aces)+ "aces.");
+	}
 	else{
 	tooltip
 	.attr("class", "tooltip")
