@@ -200,6 +200,7 @@ g.selectAll(".bar")
 	}
 	else{
 	tooltip
+	.attr("class", "tooltip")
         .style("left", d3.event.pageX - 50 + "px")
         .style("top", d3.event.pageY - 70 + "px")
         .style("display", "inline-block")
