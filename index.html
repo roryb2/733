@@ -198,6 +198,14 @@ g.selectAll(".bar")
         .style("display", "inline-block")
         .html("Federer had his worst aces in "+(d.Year) + " hitting only " + (d.Aces)+ " and cutting his season short due to injury.");
 	}
+	else if(d.Year == "2010" && id == 1){
+	tooltip
+	.attr("class", "tooltipsp")
+        .style("left", d3.event.pageX - 50 + "px")
+        .style("top", d3.event.pageY - 70 + "px")
+        .style("display", "inline-block")
+        .html("Not hitting as many aces as his peers, in "+(d.Year) + " Nadal hit his highest ace count in that period with " + (d.Aces)+ ".");
+	}
 	else{
 	tooltip
 	.attr("class", "tooltip")
