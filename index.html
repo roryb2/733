@@ -59,6 +59,14 @@
       border-radius: 4px;
       font-size: 12px;
     }
+    .tooltipsp {
+      line-height: 1;
+      padding: 6px;
+      background: rgba(0, 0, 0, 0.7);
+      color: #fff;
+      border-radius: 4px;
+      font-size: 12px;
+    }
 div.tooltip {
   position: absolute;
   text-align: center;
@@ -84,6 +92,7 @@ div.tooltip {
 <script type="text/javascript">
 function init(){
 d3.selectAll("#rf").attr("style","background-color:coral");
+	
 show_stats(0);	
 
 d3.select("#rn").on("click", function(d,i)
@@ -173,11 +182,20 @@ g.selectAll(".bar")
 .attr("width", x.bandwidth())
 .attr("height", function(d){return height - y(d.Aces);})
 .on("mouseenter", function(d){
-            tooltip
-              .style("left", d3.event.pageX - 50 + "px")
-              .style("top", d3.event.pageY - 70 + "px")
-              .style("display", "inline-block")
-              .html("Year: "+(d.Year) + "<br>" + "Aces: " + (d.Aces));
+  	if(d.Year == "2016" && id == 0){
+	tooltip
+        .style("left", d3.event.pageX - 50 + "px")
+        .style("top", d3.event.pageY - 70 + "px")
+        .style("display", "inline-block")
+        .html("Federer had his worst aces in"+(d.Year) + "<br>" + "Hitting only " + (d.Aces)+ " and cutting his season short due to injury");
+	}
+	else{
+	tooltip
+        .style("left", d3.event.pageX - 50 + "px")
+        .style("top", d3.event.pageY - 70 + "px")
+        .style("display", "inline-block")
+        .html("Year: "+(d.Year) + "<br>" + "Aces: " + (d.Aces));
+	}
         })
 .on("mouseout", function(d){ tooltip.style("display", "none");})
 ;	
