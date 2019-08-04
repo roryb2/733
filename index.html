@@ -51,7 +51,7 @@
 	.bar {fill: dodgerblue;}
 	.bar:hover {fill: indianred;}
 	.line {fill: none; stroke: royalblue; stroke-width: 3;}	
-    .tooltipsp {
+    .tooltip {
       line-height: 1;
       padding: 6px;
       background: rgba(0, 0, 0, 0.7);
@@ -64,6 +64,18 @@ div.tooltip {
   text-align: center;
   width: 72px;
   height: 35px;
+  padding: 2px;
+  font: 12px sans-serif;
+  background: mediumslateblue;
+  border: 0px;
+  border-radius: 8px;
+  pointer-events: none;
+}
+div.tooltipsp {
+  position: absolute;
+  text-align: center;
+  width: 300px;
+  height: 70px;
   padding: 2px;
   font: 12px sans-serif;
   background: mediumslateblue;
@@ -176,6 +188,7 @@ g.selectAll(".bar")
 .on("mouseenter", function(d){
   	if(d.Year == "2016" && id == 0){
 	tooltip
+	.attr("class", "tooltipsp")
         .style("left", d3.event.pageX - 50 + "px")
         .style("top", d3.event.pageY - 70 + "px")
         .style("display", "inline-block")
